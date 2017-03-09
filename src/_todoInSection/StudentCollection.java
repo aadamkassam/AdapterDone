@@ -3,6 +3,9 @@ package _todoInSection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
 import model.Student;
 
 /**
@@ -11,12 +14,7 @@ import model.Student;
  * @author Jorge Vergara, Rick Mercer, and Jeremy Mowery (jermowery@email.arizona.edu)
  *    
  */
-// TODO 1: Adapt this class to a TableModel with the methods JTable needs.
-// You can Google the methods or let Eclipse write the method stubs for you
-// (after adding implements TableModel to the class heading).
-//
-// Note: Some TableModel methods need not be implemented.
-public class StudentCollection  {
+public class StudentCollection  implements TableModel{
 
   private List<Student> theStudents;
 
@@ -61,5 +59,73 @@ public class StudentCollection  {
     }
     return null; // not found
   }
+
+@Override
+public void addTableModelListener(TableModelListener arg0) {
+}
+
+@Override
+public Class<?> getColumnClass(int arg0) {
+	return Object.class;
+}
+
+@Override
+public int getColumnCount() {
+	return 4;
+}
+
+@Override
+public String getColumnName(int arg0) {
+	if(arg0 == 0){
+		return "Name";
+	}
+	if(arg0 == 1){
+		return "Major";
+	}
+	if(arg0 == 2){
+		return "GPA";
+	}
+	if(arg0 == 3){
+		return "Age";
+	}
+	return null;
+}
+
+@Override
+public int getRowCount() {
+	return size();
+}
+
+@Override
+public Object getValueAt(int arg0, int arg1) {
+	Student tmp = get(arg0);
+	
+	if(arg1 == 0){
+		return tmp.getName();
+	}
+	if(arg1 == 1){
+		return tmp.getMajor();
+	}
+	if(arg1 == 2){
+		return tmp.getGPA();
+	}
+	if(arg1 == 3){
+		return tmp.getAge();
+	}
+	return 0;
+}
+
+@Override
+public boolean isCellEditable(int arg0, int arg1) {
+	return false;
+}
+
+@Override
+public void removeTableModelListener(TableModelListener arg0) {
+}
+
+@Override
+public void setValueAt(Object arg0, int arg1, int arg2) {
+}
 
 }
